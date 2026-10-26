@@ -1,0 +1,18 @@
+## Interface: 16001
+## Title: ARS Forever
+## Notes: Azeroth Revenue Service: gold statistics for you and the players you inspect, with saved snapshots to compare over time.
+## Author: severd8
+## Version: @project-version@
+## IconTexture: Interface\AddOns\ARSForever\Media\Icon
+## SavedVariables: ARSForeverDB
+## X-License: MIT
+## X-Curse-Project-ID: 1766671
+## X-Category: Auction & Economy
+
+Theme.lua
+Stats.lua
+Core.lua
+Ledger.lua
+News.lua
+Options.lua
+Splash.lua

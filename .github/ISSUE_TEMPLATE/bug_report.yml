@@ -1,0 +1,59 @@
+name: Bug report
+description: Something in ARS Forever isn't working
+title: "[Bug] "
+labels: ["bug"]
+assignees: ["severd8"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! The more detail you give, the faster it gets fixed. Leave out other players' names if you'd rather not share them.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What went wrong, and what did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can it be reproduced?
+      description: The steps that lead to the problem.
+      placeholder: |
+        1. Targeted a player in Orgrimmar
+        2. Opened the Inspect window
+        3. ...
+  - type: dropdown
+    id: whose
+    attributes:
+      label: Whose ledger?
+      options: [My own character, Another player (inspected), A saved character, The Characters list, Not about a ledger]
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where were you?
+      options: [A city or the open world, A dungeon or raid, A battleground, Not sure]
+  - type: dropdown
+    id: combat
+    attributes:
+      label: Were you in combat?
+      options: ["Yes", "No", "Not sure"]
+  - type: input
+    id: version
+    attributes:
+      label: Addon version
+      description: Shown in your AddOns list, or type /ars status in game.
+      placeholder: v1.0.0
+  - type: textarea
+    id: error
+    attributes:
+      label: Error message
+      description: If a Lua error appeared, paste the full text here. The error display (or an addon like BugSack) shows it.
+      render: text
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, what /ars check or /ars status printed, other addons you use, etc.
