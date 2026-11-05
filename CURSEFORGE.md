@@ -4,7 +4,7 @@
 
 Azeroth Revenue Service (ARS) reads the gold statistics the game already keeps. For yourself it shows how much gold you've ever picked up, the most you've ever held, and what's in your bags. For other players it shows the figures the game lets you see when you inspect them. Each look is saved on your computer, so you can come back later and see how someone's numbers have changed.
 
-ARS is an updated rebuild of Forever IRS for WoW: Forever, with a new look, a settings window and fixes.
+ARS is an updated rebuild of [Forever IRS](https://www.curseforge.com/wow/addons/forever-irs) for WoW: Forever, with a new look, a settings window and fixes.
 
 ## What it does
 
@@ -12,6 +12,19 @@ ARS is an updated rebuild of Forever IRS for WoW: Forever, with a new look, a se
 - **The full picture:** spending, auction activity, quests, kills, dungeons, deaths and profession ranks.
 - **Opens beside Inspect:** inspect a player and their ledger opens next to the Inspect window. You can turn this off.
 - **History you can search:** the last 20 looks at every character, kept on your computer, sortable and searchable, with a plain text report you can copy.
+
+## Based on Forever IRS
+
+ARS Forever is based on [Forever IRS](https://www.curseforge.com/wow/addons/forever-irs) by wowplayer95, which is open source under the MIT license. Its license and copyright notice are kept in the download. ARS is not affiliated with it.
+
+How ARS differs from the original:
+
+- **New look:** a new window in the same style as my other Forever addons, smaller, with the long explanations moved into hover help.
+- **New options window:** turn opening beside Inspect on or off, the Inspect window button, the window size, the minimap button and the welcome screen, with Restore defaults. Saved history can be deleted from there too.
+- **New minimap button and welcome window,** and a `/ars check` command that lists every statistic the addon reads.
+- **Brings in your Forever IRS history** so nothing is lost when you switch.
+- **Fixes:** it opens beside the Inspect window even after you've moved it, reads a second player inspected while the Inspect window is open, shows the whole copy report, doesn't turn red after every game update, and doesn't error where the game hides who a player is.
+- **Same numbers:** the statistics it reads and how it reads them are the original's.
 
 ## Getting started
 
@@ -49,6 +62,6 @@ ARS Forever is free. If it helps you, you can [leave a small tip on Ko-fi](https
 
 ## Credits
 
-Based on Forever IRS by wowplayer95; not affiliated. Not endorsed by Blizzard or the U.S. Internal Revenue Service.
+Based on [Forever IRS](https://www.curseforge.com/wow/addons/forever-irs) by wowplayer95 (MIT license); not affiliated. Not endorsed by Blizzard or the U.S. Internal Revenue Service.
 
 MIT license.

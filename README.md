@@ -4,7 +4,7 @@
 
 ARS Forever (Azeroth Revenue Service) is a gold statistics addon for **World of Warcraft: Forever**. It reads the statistics the game already keeps: for yourself, the gold you've ever picked up, the most you've ever held and what's in your bags; for other players, the same figures the game shares when you inspect them. Every look is saved on your computer, so you can come back and see how someone's numbers have changed.
 
-It's an updated rebuild of *Forever IRS* (Ironforge Revenue Service), with the shared Forever look, an options window, a minimap button and a few fixes.
+It's an updated rebuild of [Forever IRS](https://www.curseforge.com/wow/addons/forever-irs) (Ironforge Revenue Service) by wowplayer95, with the shared Forever look, an options window, a minimap button and a few fixes.
 
 ---
 
@@ -120,7 +120,7 @@ ARS Forever is free. If it helps you, you can [leave a small tip on Ko-fi](https
 
 ## Credits
 
-Based on **Forever IRS** by wowplayer95 (MIT license); not affiliated. Its statistic list, number reading and much of its logic are reused with thanks.
+Based on [**Forever IRS**](https://www.curseforge.com/wow/addons/forever-irs) by wowplayer95 (MIT license); not affiliated. ARS differs from it in its look (the shared Forever style, a smaller window, hover help), the options window, the minimap button, the welcome window, `/ars check`, bringing in Forever IRS's history, and the fixes listed in the changelog; the statistics and how they're read are the original's. Its statistic list, number reading and much of its logic are reused with thanks.
 
 An independent community addon, not endorsed by Blizzard or the U.S. Internal Revenue Service.
 
