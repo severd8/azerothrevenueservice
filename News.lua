@@ -6,6 +6,9 @@ local _, ns = ...
 local A = ns.ARS
 
 A.NEWS = {
+    { version = "1.0.1", date = "2026-11-13", items = {
+        "First Aid shows the right rank: the game's own statistic also added your Alchemy rank. Saved captures are corrected too.",
+    } },
     { version = "1.0.0", date = "2026-10-26", items = {
         "First release: an updated rebuild of Forever IRS in the Forever look.",
         "Your Forever IRS history comes along: keep Forever IRS on for one login, then turn it off.",
