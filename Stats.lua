@@ -192,6 +192,7 @@ A.REASONS = {
     unreadable = "The game returned a value that couldn't be read safely.",
     readError = "The game couldn't read this counter.",
     apiUnavailable = "This client's statistics functions are missing.",
+    combined = "The game adds the Alchemy rank into this counter, and Alchemy couldn't be read, so First Aid couldn't be worked out.",
 }
 function A.Reason(s, key)
     local r = s and s.unavailable and s.unavailable[key]
@@ -287,6 +288,29 @@ function A.CheckCapture(s, previous)
     return r
 end
 
+-- The game's "First Aid skill" statistic (281) has two criteria: First Aid
+-- (5592) and criterion 164, the one behind "Highest Alchemy skill" (1527). It
+-- shows their sum, so First Aid 66 with Alchemy 195 reads 261. (Achievement,
+-- CriteriaTree and Criteria data, build 1.60.1.70888.) Take the Alchemy rank
+-- back off. Alchemy not reported (never learned) counts as 0; Alchemy
+-- unreadable leaves First Aid unavailable rather than wrong.
+A.FIRST_AID_NOTE = "The game's own First Aid statistic also adds the Alchemy rank; ARS takes it back off."
+function A.FixFirstAid(s)
+    s.firstAidFixed = true
+    local fa = s.values.firstAid
+    if not fa then return end
+    local alchemy, sub = s.values.alchemy, nil
+    if alchemy then sub = alchemy.number
+    elseif s.unavailable.alchemy == "notReported" then sub = 0 end
+    if fa.number ~= nil and sub ~= nil and fa.number >= sub then
+        s.values.firstAid = { number = fa.number - sub }
+    else
+        s.values.firstAid = nil
+        s.unavailable.firstAid = "combined"
+        s.available = s.available - 1
+    end
+end
+
 -- Reads every statistic. subject: { guid, name, realm, class, level, guild }.
 -- own: your own (GetStatistic) or the inspected player's (GetComparisonStatistic).
 function A.Read(subject, own)
@@ -319,6 +343,7 @@ function A.Read(subject, own)
             s.unavailable[key] = nil
         end
     end
+    A.FixFirstAid(s)
     if own and type(GetMoney) == "function" then
         local ok, n = pcall(GetMoney)
         if ok then s.wallet = A.Number(n) end

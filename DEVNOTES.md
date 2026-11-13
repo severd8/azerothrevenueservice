@@ -72,6 +72,10 @@ Found by reading its code (its CurseForge comments and issues weren't reachable 
 5. Every capture after a game update showed a red "WARNING" source line.
 6. A skull level (-1) was shown live but dropped on reload; now "??" both ways.
 
+## First Aid statistic (1.0.1)
+
+Statistic 281 "First Aid skill" has two criteria in its tree: 5592 (skill 129, First Aid) **and 164 (skill 171, Alchemy)**, the same criterion as 1527 "Highest Alchemy skill", so the game shows their sum (reported: First Aid 66 shown as 261). Found in ATT's wago exports of Achievement, CriteriaTree and Criteria for 1.60.1.70888; no other field shares a criterion that way except the gold totals (328/753 add up the income rows on purpose). `A.FixFirstAid` (called from `A.Read` and `CleanSnapshot`) subtracts the Alchemy value; Alchemy not reported counts as 0; Alchemy unreadable makes First Aid `combined` (unavailable). Snapshots carry `firstAidFixed = true` so saved ones are corrected once. **If a game patch fixes the tree, remove the fix** (it would then under-report First Aid): check `CriteriaTree` for 281's children after patches.
+
 ## Tests
 
 `lua5.1 tests/run.lua` (GitHub Actions runs it on every push and before every release). `tests/wowstub.lua` fakes the game as Forever has it: no `GetPetHappiness`, `GetSpecialization`, `IsPlayerSpell`, `GetCoinTextureString`; frames take any method name (capitalised) but a field never set reads nil, and the methods the addon adds itself (`ADDON_METHODS`) read nil unless added; OnUpdate only on shown frames; `Show` on a hidden frame runs OnShow; secrets (`Secret(v)`, `SECRET_MODE`) error on comparison, maths, joining and indexing, and passing one to a method other than `SetText`/`SetValue`/... errors; `BLOCKED` records protected calls in combat. Fake units (`UNITS`, `SetTarget`), statistics (`STAT_NAMES`, `STATS_SELF`, `STATS_OTHER`, `STAT_SKIP`), requests (`REQUESTS`, `Answer`), the Inspect window (`LoadInspectUI`), time (`Wait`, `Tick`), `C_Timer.After` (`RunTimers`).

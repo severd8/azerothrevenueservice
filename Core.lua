@@ -87,6 +87,8 @@ function A.CleanSnapshot(raw, guid)
             s.unavailable[key] = raw.unavailable[key]
         end
     end
+    -- Captures from before 1.0.1 (and Forever IRS's) still hold First Aid + Alchemy
+    if raw.firstAidFixed == true then s.firstAidFixed = true else A.FixFirstAid(s) end
     if s.available > 0 or s.wallet ~= nil then return s end
 end
 

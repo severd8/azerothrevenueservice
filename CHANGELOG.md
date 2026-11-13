@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- **First Aid shows the right rank.** The game's own First Aid statistic also adds your Alchemy rank (a First Aid of 66 with Alchemy at 195 showed as 261). ARS now takes the Alchemy rank back off, for you and for inspected players. Captures you already saved are corrected too. If Alchemy can't be read, First Aid shows as unavailable instead of a wrong number.
+
 ## 1.0.0
 
 The first release of ARS Forever (Azeroth Revenue Service), an updated rebuild of Forever IRS for WoW: Forever.

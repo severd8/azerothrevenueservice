@@ -17,6 +17,8 @@ local THIRD = { guid = "Player-1-00000003", name = "Coinpurse", realm = "Forever
 local function Stats(t)
     local out = {}
     for _, f in ipairs(A.FIELDS) do out[f[2]] = t[f[1]] end
+    -- Like the game: First Aid's statistic (281) also counts the Alchemy rank
+    if t.firstAid then out[281] = t.firstAid + (t.alchemy or 0) end
     return out
 end
 
@@ -234,6 +236,47 @@ Test("skipped and unknown statistics are reported, not zero", function()
     eq(A.snapshot.unavailable.looted, "skipped")
     eq(A.snapshot.unavailable.vendors, "unsupported")
     eq(A.Value(A.snapshot, "looted"), "Unavailable")
+end)
+
+Test("First Aid: the Alchemy rank the game adds is taken back off", function()
+    Fresh()
+    STATS_SELF = Stats({ firstAid = 66, alchemy = 195 })
+    eq(STATS_SELF[281], 261, "the stub adds them like the game")
+    A:Audit("player")
+    eq(A.Numeric(A.snapshot, "firstAid"), 66, "First Aid alone")
+    eq(A.Numeric(A.snapshot, "alchemy"), 195, "Alchemy unchanged")
+    yes(A.snapshot.firstAidFixed, "marked as corrected")
+    -- No Alchemy ever: the game reports nothing for it, First Aid is the whole sum
+    STATS_SELF = Stats({ firstAid = 150 })
+    A:Audit("player")
+    eq(A.Numeric(A.snapshot, "firstAid"), 150, "no Alchemy")
+    -- Alchemy hidden: First Aid can't be worked out, so it isn't shown wrong
+    STATS_SELF = Stats({ firstAid = 66, alchemy = 195 })
+    STAT_SKIP[1527] = true
+    A:Audit("player")
+    eq(A.Numeric(A.snapshot, "firstAid"), nil, "unknown, not 261")
+    eq(A.snapshot.unavailable.firstAid, "combined")
+    yes(A.Reason(A.snapshot, "firstAid"):find("Alchemy", 1, true), "reason says why")
+    STAT_SKIP[1527] = nil
+    -- Another player: the same correction
+    Fresh()
+    STATS_OTHER[OTHER.guid] = Stats({ acquired = G, firstAid = 300, alchemy = 300 })
+    SetTarget(OTHER)
+    A:Audit("target")
+    Answer("target")
+    eq(A.Numeric(A.snapshot, "firstAid"), 300, "inspected player's First Aid")
+end)
+
+Test("First Aid in captures saved before the fix is corrected once on load", function()
+    local values = { acquired = { number = G }, firstAid = { number = 261 }, alchemy = { number = 195 } }
+    local old = A.CleanSnapshot({ at = 1000, build = "1.60.1.70532", own = true, values = values }, OTHER.guid)
+    eq(A.Numeric(old, "firstAid"), 66, "old capture corrected")
+    yes(old.firstAidFixed, "marked")
+    local again = A.CleanSnapshot(old, OTHER.guid)
+    eq(A.Numeric(again, "firstAid"), 66, "not taken off twice")
+    local noAlchemy = A.CleanSnapshot({ at = 1000, build = "1.60.1.70532", values = { firstAid = { number = 261 } },
+        unavailable = { alchemy = "notReported" } }, OTHER.guid)
+    eq(A.Numeric(noAlchemy, "firstAid"), 261, "nothing to take off")
 end)
 
 Test("numbers: coin text, grouped digits, gap", function()

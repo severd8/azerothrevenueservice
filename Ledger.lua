@@ -142,6 +142,7 @@ local function Explain(self)
     if key == "travel" or key == "postage" or key == "barber" or key == "respec" then
         GameTooltip:AddLine("Only these kinds of spending are counted, not all of it.", 0.8, 0.8, 0.8, true)
     end
+    if key == "firstAid" then GameTooltip:AddLine(A.FIRST_AID_NOTE, 0.8, 0.8, 0.8, true) end
     if A.BY_KEY[key][5] then GameTooltip:AddLine("Highest rank recorded; the profession may have been unlearned since.", 0.8, 0.8, 0.8, true) end
     GameTooltip:Show()
 end
